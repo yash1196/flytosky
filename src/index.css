@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-navy-950 text-white antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .section-label {
+    @apply text-xs font-semibold tracking-[0.2em] uppercase text-cream-200;
+  }
+  .section-heading {
+    @apply text-3xl md:text-4xl font-bold text-white leading-tight;
+    font-family: 'Playfair Display', serif;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-cream-100 text-navy-900 font-semibold px-6 py-3 rounded-full hover:bg-cream-50 transition-all duration-200 hover:shadow-lg hover:shadow-cream-100/20 active:scale-95;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border border-cream-100/30 text-cream-100 font-medium px-6 py-3 rounded-full hover:bg-cream-100/10 transition-all duration-200 active:scale-95;
+  }
+  .card-dark {
+    @apply bg-white/[0.04] border border-white/10 rounded-2xl backdrop-blur-sm overflow-hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    will-change: background-color, border-color, box-shadow;
+  }
+  .card-dark:hover {
+    @apply bg-white/[0.07] border-white/20;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+  }
+  /* Prevent layout jump when expandable content toggles inside a card */
+  .card-dark .expand-content {
+    animation: expandIn 0.25s ease;
+  }
+  @keyframes expandIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .nav-link {
+    @apply text-sm font-medium text-white/70 hover:text-white transition-all duration-200 relative;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 h-px w-0 bg-cream-200 transition-all duration-300;
+  }
+  .nav-link:hover::after { @apply w-full; }
+  .credential-badge {
+    @apply inline-flex items-center gap-1.5 bg-cream-100/10 border border-cream-100/25 text-cream-200 text-xs font-semibold px-3 py-1.5 rounded-full transition-all duration-200;
+  }
+  .credential-badge:hover {
+    @apply bg-cream-100/20 border-cream-100/40;
+  }
+
+  /* Section glow accent */
+  .section-glow {
+    position: relative;
+  }
+  .section-glow::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 60%; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(236,227,196,0.15), transparent);
+  }
+}
+
+/* Scroll animations */
+.sa-hidden {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.sa-visible { opacity: 1; transform: translateY(0); }
+
+/* Hero keyframes */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Smooth, consistent easing for all interactive elements */
+a, button {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Smooth underline sweep on links */
+.nav-link::after {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Image zoom on hover — refined easing */
+.img-zoom {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.img-zoom:hover,
+.group:hover .img-zoom {
+  transform: scale(1.06);
+}
+.img-zoom-lg {
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.img-zoom-lg:hover,
+.group:hover .img-zoom-lg {
+  transform: scale(1.10);
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Service card stagger */
+.fade-in-up {
+  opacity: 0;
+  animation: cardIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.fade-in-up:nth-child(1) { animation-delay: 0.05s; }
+.fade-in-up:nth-child(2) { animation-delay: 0.12s; }
+.fade-in-up:nth-child(3) { animation-delay: 0.19s; }
+.fade-in-up:nth-child(4) { animation-delay: 0.26s; }
+.fade-in-up:nth-child(5) { animation-delay: 0.33s; }
+.fade-in-up:nth-child(6) { animation-delay: 0.40s; }
+.fade-in-up:nth-child(7) { animation-delay: 0.47s; }
+.fade-in-up:nth-child(8) { animation-delay: 0.54s; }
+.fade-in-up:nth-child(9) { animation-delay: 0.61s; }
+.fade-in-up:nth-child(10) { animation-delay: 0.68s; }
+.fade-in-up:nth-child(11) { animation-delay: 0.75s; }
+
+/* Shimmer text */
+.text-shimmer {
+  background: linear-gradient(90deg, #ece3c4 0%, #fff8e8 40%, #ece3c4 60%, #c9a96e 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Floating animation for logo */
+.float-anim { animation: float 4s ease-in-out infinite; }
+
+/* Radar pulse dot */
+.pulse-dot {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.pulse-dot::before {
+  content: '';
+  position: absolute;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: rgba(100,220,140,0.3);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* Section glow accent */
+
+/* Section background accent */
+.section-accent {
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(30,63,118,0.15) 0%, transparent 70%);
+}
+
+/* Line clamp */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mobile padding */
+@media (max-width: 768px) {
+  body { padding-bottom: 64px; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #05101f; }
+::-webkit-scrollbar-thumb { background: rgba(236,227,196,0.2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(236,227,196,0.4); }
